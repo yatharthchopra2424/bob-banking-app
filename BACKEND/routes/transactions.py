@@ -53,6 +53,23 @@ def withdraw_funds():
         )
 
     try:
+        amount = float(amount_raw)
+    except ValueError:
+        return render_template(
+            "withdraw.html", balance=account["balance"], error="Amount must be greater than zero."
+        )
+
+    if amount <= 0:
+        return render_template(
+            "withdraw.html", balance=account["balance"], error="Amount must be greater than zero."
+        )
+
+    if amount > account["balance"]:
+        return render_template(
+            "withdraw.html", balance=account["balance"], error="Insufficient funds."
+        )
+
+    try:
         new_balance = withdraw(
             account["account_id"], amount_raw, account["balance"]
         )
