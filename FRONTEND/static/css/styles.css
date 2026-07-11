@@ -1,0 +1,123 @@
+/* ═══════════════════════════════════════════════════════════════════
+   NexaBank — Custom Styles
+═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --nb-navy:       #0d1b3e;
+  --nb-blue:       #1a3a8f;
+  --nb-blue-mid:   #2563eb;
+  --nb-gold:       #f5a623;
+  --nb-success:    #198754;
+  --nb-warning:    #f59e0b;
+  --nb-surface:    #f7f9fc;
+  --nb-card-bg:    #ffffff;
+  --nb-border:     #e5e9f0;
+  --nb-text:       #1f2328;
+  --nb-muted:      #6b7280;
+  --nb-nav-h:      68px;
+  --radius-lg:     1rem;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--nb-surface);
+  color: var(--nb-text);
+  font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+html.has-scroll-smooth,
+html.has-scroll-smooth body { overflow: hidden; }
+
+[data-scroll-container] { overflow: hidden; }
+
+.nb-custom {
+  background: linear-gradient(135deg, var(--nb-navy) 0%, var(--nb-blue) 100%);
+  height: var(--nb-nav-h);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+}
+
+.nb-custom .navbar-brand { font-size: 1.35rem; letter-spacing: -0.02em; }
+.nb-custom .nav-link { font-size: 0.9rem; opacity: 0.9; transition: opacity 0.2s; }
+.nb-custom .nav-link:hover { opacity: 1; }
+
+.pt-navbar { padding-top: var(--nb-nav-h); }
+
+.flash-container {
+  position: fixed;
+  top: calc(var(--nb-nav-h) + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 540px);
+  z-index: 1050;
+}
+.flash-container .alert { border-radius: var(--radius-lg); font-size: 0.9rem; }
+
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(145deg, var(--nb-navy) 0%, #1e4db7 60%, #2563eb 100%);
+}
+.login-card { width: min(92vw, 460px); border: none; border-radius: var(--radius-lg); overflow: hidden; }
+.login-card-header { background: linear-gradient(135deg, var(--nb-navy) 0%, var(--nb-blue) 100%); color: #fff; }
+.bank-logo i { font-size: 2.5rem; color: var(--nb-gold); }
+
+.dashboard-page { min-height: 100vh; background-color: var(--nb-surface); }
+
+.welcome-banner {
+  background: linear-gradient(135deg, var(--nb-navy) 0%, var(--nb-blue-mid) 100%);
+  color: #fff;
+}
+.welcome-banner h1 { color: #fff; }
+.welcome-banner .text-muted { color: rgba(255, 255, 255, 0.65) !important; }
+.welcome-banner #currentDate { color: rgba(255, 255, 255, 0.9); }
+.letter-spacing-1 { letter-spacing: 0.08em; }
+
+.balance-card {
+  background: linear-gradient(135deg, #1a3a8f 0%, #2563eb 100%);
+  color: #fff;
+  border-radius: var(--radius-lg) !important;
+}
+.balance-amount { color: #fff; font-size: clamp(2rem, 6vw, 3rem); }
+.balance-card .text-muted { color: rgba(255, 255, 255, 0.65) !important; }
+
+.action-card {
+  background: var(--nb-card-bg);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: var(--radius-lg) !important;
+  color: var(--nb-text);
+}
+.action-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12) !important; color: var(--nb-text); }
+.deposit-icon { color: var(--nb-success); }
+.withdraw-icon { color: var(--nb-warning); }
+.info-card { background: var(--nb-card-bg); border: 1px solid var(--nb-border) !important; }
+
+.transaction-page { min-height: 100vh; background-color: var(--nb-surface); }
+.transaction-card { border-radius: var(--radius-lg) !important; overflow: hidden; }
+.transaction-header { color: #fff; }
+.deposit-header { background: linear-gradient(135deg, #065f46 0%, var(--nb-success) 100%); }
+.withdraw-header { background: linear-gradient(135deg, #92400e 0%, var(--nb-warning) 100%); }
+.tx-icon i { font-size: 2.2rem; }
+.balance-pill { background: var(--nb-surface); border: 1px solid var(--nb-border); }
+.balance-pill p.fw-bold { color: var(--nb-navy); }
+
+.error-page { min-height: 100vh; background-color: var(--nb-surface); }
+.page-main { flex: 1; }
+.site-footer { border-top: 1px solid var(--nb-border); background-color: var(--nb-card-bg); }
+
+.rounded-4 { border-radius: var(--radius-lg) !important; }
+.rounded-top-4 { border-top-left-radius: var(--radius-lg) !important; border-top-right-radius: var(--radius-lg) !important; }
+
+.form-control:focus,
+.input-group-text {
+  border-color: var(--nb-blue-mid);
+  box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+}
+.toggle-pw { border-left: 0; }
+
+@media (max-width: 576px) {
+  .action-card { padding: 1.5rem !important; }
+  .balance-amount { font-size: 2rem; }
+}

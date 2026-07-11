@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Login — NexaBank{% endblock %}
+
+{% block content %}
+<div class="login-page d-flex align-items-center justify-content-center" data-scroll-section>
+
+  <div class="login-card card shadow-lg" data-scroll data-scroll-speed="1">
+
+    <div class="card-header login-card-header text-center py-4">
+      <div class="bank-logo mb-2">
+        <i class="bi bi-bank2"></i>
+      </div>
+      <h1 class="h3 fw-bold mb-0">NexaBank</h1>
+      <p class="mb-0 opacity-75 small">Secure Online Banking</p>
+    </div>
+
+    <div class="card-body p-4 p-md-5">
+      <h2 class="h5 fw-semibold text-center mb-4">Sign in to your account</h2>
+
+      {% if error %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2 flex-shrink-0"></i>
+          <span>{{ error }}</span>
+        </div>
+      {% endif %}
+
+      <form method="POST" action="{{ url_for('auth.login') }}" novalidate>
+
+        <div class="mb-3">
+          <label for="username" class="form-label fw-medium">Username</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+            <input type="text" id="username" name="username" class="form-control"
+                   placeholder="Enter your username"
+                   value="{{ request.form.get('username', '') }}"
+                   autocomplete="username" required />
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="password" class="form-label fw-medium">Password</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="Enter your password"
+                   autocomplete="current-password" required />
+            <button class="btn btn-outline-secondary toggle-pw" type="button"
+                    data-target="password" title="Show/hide password">
+              <i class="bi bi-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-lg fw-semibold">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Login
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="card-footer text-center py-3 bg-transparent">
+      <small class="text-muted">
+        <i class="bi bi-shield-lock me-1"></i>
+        256-bit SSL Encrypted &bull; Demo credentials: <code>alice / password123</code>
+      </small>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

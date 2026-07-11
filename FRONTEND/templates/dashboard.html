@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — NexaBank{% endblock %}
+
+{% block content %}
+<div class="dashboard-page pt-navbar" data-scroll-section>
+  <div class="container py-5">
+
+    <div class="row mb-5" data-scroll data-scroll-speed="0.5">
+      <div class="col-12">
+        <div class="welcome-banner rounded-4 p-4 p-md-5">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div>
+              <p class="text-muted mb-1 small text-uppercase fw-semibold letter-spacing-1">Welcome back</p>
+              <h1 class="display-6 fw-bold mb-0">{{ customer_name }}</h1>
+            </div>
+            <div class="text-end">
+              <p class="text-muted mb-1 small">Today</p>
+              <p class="mb-0 fw-medium" id="currentDate"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-4" data-scroll data-scroll-speed="0.3">
+      <div class="col-12 col-md-6 mx-auto">
+        <div class="balance-card card text-center shadow border-0 rounded-4">
+          <div class="card-body py-5">
+            <p class="text-muted mb-2 text-uppercase fw-semibold small letter-spacing-1">
+              <i class="bi bi-wallet2 me-1"></i> Available Balance
+            </p>
+            <h2 class="balance-amount display-4 fw-bold mb-1">
+              $<span id="balanceValue">{{ "%.2f"|format(balance) }}</span>
+            </h2>
+            <p class="text-muted small mb-0">Account #{{ "%06d"|format(account_id) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-5" data-scroll data-scroll-speed="0.2">
+      <div class="col-12 col-md-8 mx-auto">
+        <div class="row g-3">
+          <div class="col-6">
+            <a href="{{ url_for('transactions.deposit_funds') }}"
+               class="action-card card text-center border-0 shadow-sm rounded-4 text-decoration-none p-4 d-block h-100">
+              <i class="bi bi-arrow-down-circle-fill action-icon deposit-icon fs-1 mb-3 d-block"></i>
+              <h5 class="fw-semibold mb-1">Deposit Funds</h5>
+              <p class="text-muted small mb-0">Add money to your account</p>
+            </a>
+          </div>
+          <div class="col-6">
+            <a href="{{ url_for('transactions.withdraw_funds') }}"
+               class="action-card card text-center border-0 shadow-sm rounded-4 text-decoration-none p-4 d-block h-100">
+              <i class="bi bi-arrow-up-circle-fill action-icon withdraw-icon fs-1 mb-3 d-block"></i>
+              <h5 class="fw-semibold mb-1">Withdraw Funds</h5>
+              <p class="text-muted small mb-0">Take money from your account</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-3" data-scroll data-scroll-speed="0.1">
+      <div class="col-12 col-md-4">
+        <div class="info-card card border-0 rounded-4 p-4 h-100">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-shield-check-fill text-success fs-4 me-3"></i>
+            <h6 class="fw-semibold mb-0">Secure Account</h6>
+          </div>
+          <p class="text-muted small mb-0">Your account is protected with industry-standard encryption.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="info-card card border-0 rounded-4 p-4 h-100">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-clock-history text-primary fs-4 me-3"></i>
+            <h6 class="fw-semibold mb-0">24/7 Access</h6>
+          </div>
+          <p class="text-muted small mb-0">Manage your finances any time, from anywhere.</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-4">
+        <div class="info-card card border-0 rounded-4 p-4 h-100">
+          <div class="d-flex align-items-center mb-2">
+            <i class="bi bi-lightning-charge-fill text-warning fs-4 me-3"></i>
+            <h6 class="fw-semibold mb-0">Instant Updates</h6>
+          </div>
+          <p class="text-muted small mb-0">All transactions reflect immediately on your balance.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% block extra_js %}
+<script>
+  document.getElementById("currentDate").textContent =
+    new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+
+  (function () {
+    const el = document.getElementById("balanceValue");
+    const target = parseFloat(el.textContent.replace(/,/g, ""));
+    let start = 0;
+    const duration = 1200;
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = (eased * target).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  })();
+</script>
+{% endblock %}
+{% endblock %}
